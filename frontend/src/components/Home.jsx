@@ -1,11 +1,12 @@
 //Importamos el useSelector del react-redux
 import { useSelector } from 'react-redux'
-import { Typography } from '@mui/material'
+import { AppBar, Typography, Container, Grid, Link, Toolbar,} from '@mui/material'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Button from '@mui/material/Button';
 import { useDispatch } from 'react-redux';
 import { loginActions } from '../store/storelogin';
+import AdbIcon from '@mui/icons-material/Adb';
 
 function Home() {
 
@@ -35,10 +36,27 @@ const CerrarSesion = () => {
 console.log(userData)
 
 return <>
-
-<Typography variant="h1" component="h1" sx={{ textAlign: 'center' }}>Página home de Abimael López Jiménez</Typography>
-<Typography variant="h2" component="h3" sx={{ textAlign: 'center' }}>Nombre de usuario: {userData.userName} | Rol: {userData.userRol}</Typography>
-<Button variant="contained" color="secondary" sx={{ marginLeft: '10px',marginTop:'700px' }} onClick={CerrarSesion}>Back</Button>
+    <AppBar position='static'>
+        <Container>
+            <Toolbar>
+                <Grid container>
+                    <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
+                    //AdbIcon es un componente de la librería '@mui/icons-material/Adb' Elige uno diferente
+                        <AdbIcon/>
+                        <Typography>{userData.usuario}</Typography>
+                        </Grid>
+                        <Grid item xs={12} md={4} lg={3}>
+                            <Link to='/home'>Inicio</Link>
+                        </Grid>
+                        AÑADIR TANTOS GRID ITEMS COMO SEAN NECESARIOS CON LOS LINKS
+                        A LAS PÁGINAS Informes y Ayuda
+                        <Grid item xs={12} md={4} lg={3}>
+                        <Button variant="contained" onClick = {CerrarSesion}>Salir</Button>
+                    </Grid>
+                </Grid>
+            </Toolbar>
+        </Container>
+    </AppBar>
 
 
 
