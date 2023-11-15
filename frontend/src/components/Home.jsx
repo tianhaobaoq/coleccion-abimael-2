@@ -1,12 +1,10 @@
 //Importamos el useSelector del react-redux
 import { useSelector } from 'react-redux'
-import { AppBar, Typography, Container, Grid, Toolbar,Paper,Box,TextField} from '@mui/material'
+import { Grid,Paper,Box,TextField} from '@mui/material'
 import { useEffect,useState} from 'react'
-import { useNavigate,Link} from 'react-router-dom'
+import { useNavigate} from 'react-router-dom'
 import Button from '@mui/material/Button';
 import { useDispatch } from 'react-redux';
-import { loginActions } from '../store/storelogin';
-import AttractionsIcon from '@mui/icons-material/Attractions';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -28,11 +26,6 @@ function Home() {
       handleGetItem()
 
     }, [isLoggedin, navigate])
-  
-    const CerrarSesion = () => {
-      dispatch(loginActions.logout())
-      navigate('/')    
-    }
 
 
     const [item, setItem] = useState({nombre: '',marca: '',tipo: '',precio: ''})
@@ -49,6 +42,11 @@ function Home() {
           if (data>0) {
               handleGetItem()
               alert('Item guardado correctamente')
+              item.nombre = ""
+              item.marca = ""
+              item.tipo = ""
+              item.precio = ""
+
             } else {
               alert('Item NO guardado ')
             }
@@ -67,7 +65,7 @@ function Home() {
           alert('Item borrado correctamente')
           handleGetItem()
 
-          if (tableData.length == 1) {
+          if (tableData.length === 1) {
             setTableData([]);
           }
         } else {
@@ -92,37 +90,9 @@ function Home() {
   
     return (
       <>
-        <AppBar position='static'>
-          <Container>
-            <Toolbar>
-              <Grid container justifyContent="space-between">
-                <Grid item container xs={3} sm={3} md={3} lg={2} xl={2} sx={{alignContent:'center'}}>
-                  <AttractionsIcon />
-                  <Typography sx={{ display: 'inline', fontSize: '24px' }}>{userData.userName}</Typography>
-                </Grid>
-  
-                <Grid item container xs={3} md={3} lg={2} xl={2} sx={{alignContent:'center'}}>
-                  <Link to='/home'>Inicio</Link>
-                </Grid>
-  
-                <Grid item container xs={3} md={3} lg={2} xl={2} sx={{alignContent:'center'}}>
-                  <Link to='/informes'>Informes</Link>
-                </Grid>
-  
-                <Grid item container xs={3} md={3} lg={2} xl={2} sx={{alignContent:'center'}}>
-                  <Link to='/ayuda'>Ayuda</Link>
-                </Grid>
-  
-                <Grid item container xs={3} md={3} lg={2} xl={3} justifyContent="flex-end">
-                  <Button variant="contained" color="secondary" onClick={CerrarSesion}>Salir</Button>
-                </Grid>
-              </Grid>
-            </Toolbar>
-          </Container>
-        </AppBar>
 
         <Paper>
-            <Box component='form' autoComplete='off' onSubmit={CerrarSesion} >
+            <Box>
                 <Grid container marginTop={'20px'}>
                     <Grid item xs={3} md={3} marginTop={'10px'} marginBottom={'10px'}>
 
@@ -190,9 +160,22 @@ function Home() {
           <TableBody>
             {tableData.map((row) => (
               <TableRow key={row.id} sx={{ border: '1px solid black' }}>
+
+
+
+                {userData.userRol === 'admin' ?
                 <Button onClick={() => handleDeleteItem(row.id)}>
                   <DeleteForeverIcon />
                 </Button>
+                : 
+                <Button sx={{backgroundColor: 'gray', 
+                color: 'white', 
+                cursor: 'not-allowed'}}>
+                  <DeleteForeverIcon />
+                </Button>
+                }
+
+
                 <TableCell sx={{ color: 'black', border: '1px solid black' }}>{row.nombre}</TableCell>
                 <TableCell sx={{ color: 'black', border: '1px solid black' }}>{row.marca}</TableCell>
                 <TableCell sx={{ color: 'black', border: '1px solid black' }}>{row.tipo}</TableCell>
