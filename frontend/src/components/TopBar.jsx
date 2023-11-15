@@ -1,8 +1,11 @@
-import { AppBar, Typography, Container, Toolbar} from '@mui/material'
+import { Grid,AppBar, Typography, Container, Toolbar} from '@mui/material'
 import { useNavigate,Link} from 'react-router-dom'
 import AttractionsIcon from '@mui/icons-material/Attractions';
 import AdbIcon from '@mui/icons-material/Adb';import Table from '@mui/material/Table';
-
+import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux';
+import Button from '@mui/material/Button';
+import { loginActions } from '../store/storelogin';
 
 
 function TopBar() {
@@ -11,14 +14,6 @@ function TopBar() {
     const isLoggedin = userData.isAutenticated
     const navigate = useNavigate()
     const dispatch = useDispatch();
-  
-    useEffect(() => {
-      if (!isLoggedin) {
-        navigate('/')
-      }
-      handleGetItem()
-
-    }, [isLoggedin, navigate])
   
     const CerrarSesion = () => {
       dispatch(loginActions.logout())
@@ -66,7 +61,7 @@ function TopBar() {
             </AppBar>
         </>
     );
+    
 }
 
-
-return TopBar;
+export default TopBar

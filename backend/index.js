@@ -70,6 +70,11 @@ app.get('/deleteItem', async function(req, res, next) {
    })
 
 
+//Página de informes
+app.get('/informes', function (req, res) {
+    res.json({message: 'Página de informes'})
+})
+
 
 
 //Iniciamos la API
