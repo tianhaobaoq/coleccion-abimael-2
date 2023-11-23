@@ -37,11 +37,11 @@ function InformesColeccion(props) {
                 exportMenu: [
                 {
                 label: "Export PDF",
-                exportFunc: (cols, datas) => ExportPdf(cols, datas, "myPdfFileName"),
+                exportFunc: (cols, datas) => ExportPdf(cols, datas, "TablaPdf"),
                 },
                 {
                 label: "Export CSV",
-                exportFunc: (cols, datas) => ExportCsv(cols, datas, "myCsvFileName"),
+                exportFunc: (cols, datas) => ExportCsv(cols, datas, "TablaCsv"),
                 },
                 {
                     headerStyle: {
